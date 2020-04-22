@@ -481,7 +481,7 @@ async function Encounter(receivedMessage)
 		var item = await AddItem(receivedMessage, enemyPrice);
 		const AllItems = await Items.findAll({ where: { UID: receivedMessage.author.id } });
 		var itemsCount = AllItems.length;
-		receivedMessage.channel.send(receivedMessage.author.username + " получил: [" + itemsCount + '] ' + await GetItemString(receivedMessage, item, false, false, true));
+		receivedMessage.channel.send(receivedMessage.author.username + " получил: " + await GetItemString(receivedMessage, item, false, false, true));
 	}
 }
 
