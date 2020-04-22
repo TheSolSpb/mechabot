@@ -968,7 +968,7 @@ async function SellNotInstalled(receivedMessage)
 	for (var i = 0; i < AllItems.length; i++)
 	{
 		var thisItem = AllItems[i]; // Put it in a variable for shits and giggles
-		var itemPrice = thisItem.price; // Get its price
+		var itemPrice = thisItem.price / 2; // Get its price
 		var balanceUnits = await GetBalance(authorID); // Get user's balance
 
 		// Successful sell
