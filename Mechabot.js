@@ -15,7 +15,7 @@ const sequelize = new Sequelize(process.env.DATABASE_URL,
 // Creating an item model
 const Items = sequelize.define('items',
 	{
-		UID: Sequelize.INTEGER,
+		UID: Sequelize.BIGINT,
 		name: Sequelize.STRING,
 		type: Sequelize.INTEGER,
 		place: Sequelize.INTEGER,
@@ -29,7 +29,7 @@ const Items = sequelize.define('items',
 // Creating a Unit bank model
 const Bank = sequelize.define('balances',
 	{
-		UID: Sequelize.INTEGER,
+		UID: Sequelize.BIGINT,
 		units: Sequelize.INTEGER
 	},
 );
