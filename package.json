@@ -1,0 +1,25 @@
+{
+
+  "name": "mechabot",
+
+  "description": "Solawk's bot",
+
+  "version": "1.0.0",
+
+  "main": "Mechabot.js",
+
+  "scripts": {
+
+    "start": "node Mechabot.js"
+
+  },
+
+  "dependencies": {
+
+    "discord.js": "11.1.0",
+
+    "request": "2.81.0"
+
+  }
+
+}
