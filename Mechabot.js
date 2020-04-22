@@ -927,7 +927,7 @@ async function SellItem(receivedMessage, index)
 	if (AllItems[index]) // If the item's ok
 	{
 		var thisItem = AllItems[index]; // Put it in a variable for shits and giggles
-		var itemPrice = thisItem.price; // Get its price
+		var itemPrice = thisItem.price / 2; // Get its price
 		var balanceUnits = await GetBalance(authorID); // Get user's balance
 
 		if (thisItem.place == 1)
