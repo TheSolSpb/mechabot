@@ -841,7 +841,7 @@ async function UpgradeItem(receivedMessage, index)
 				var mechFreeEnergy = mechEnergyLimit - mechEnergy;
 				var energyGain = Math.ceil(thisItem.arg3 * 0.6);
 
-				if (energyGain > mechFreeEnergy)
+				if (energyGain > mechFreeEnergy && thisItem.place != 0)
 				{
 					receivedMessage.channel.send("Ядру нужно на " + (energyGain - mechFreeEnergy) + ' больше энергии для этого апгрейда!');
 					return;
@@ -854,7 +854,7 @@ async function UpgradeItem(receivedMessage, index)
 				var mechFreeWeight = mechWeightLimit - mechWeight;
 				var weightGain = Math.ceil(thisItem.arg3 * 0.6);
 
-				if (weightGain > mechFreeWeight)
+				if (weightGain > mechFreeWeight && thisItem.place != 0)
 				{
 					receivedMessage.channel.send("Ядру нужно на " + (weightGain - mechFreeWeight) + ' кг грузоподъёмности для этого апгрейда!');
 					return;
