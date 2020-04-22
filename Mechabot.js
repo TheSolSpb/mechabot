@@ -744,7 +744,7 @@ async function BuyItem(receivedMessage)
 		var item = await AddItem(receivedMessage, Math.floor(price / 2));
 		await SetBalance(authorID, balanceUnits - price); // Deduct money
 		receivedMessage.channel.send('Покупка успешна, новый баланс ' + (balanceUnits - price) + ' Юнитов!'); // Show it was successful
-		receivedMessage.channel.send(GetItemString(receivedMessage, item, false, true, true));
+		receivedMessage.channel.send(await GetItemString(receivedMessage, item, false, true, true));
 	}
 	else // If not enough funds
 	{
