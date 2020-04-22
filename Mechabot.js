@@ -58,7 +58,7 @@ function ProcessMessage(receivedMessage, messageContent)
 		str += '**м!ул** ***x*** - улучшить *x*-й предмет в инвентаре: м!ул 4\n';
 		str += '**м!прод** ***x*** - продать *x*-й из инвентаря за полцены: м!прод 5\n';	
 		str += '**м!проднеуст** - продать все неустановленные на мехе предметы за полцены\n';	
-		str += '**м!куп** ***x*** - купить случайный предмет за утроенную цену (не менее 30Ю): м!куп 90\n';	
+		str += '**м!куп** ***x*** - купить случайный предмет за удвоенную цену (не менее 20Ю): м!куп 80\n';	
 
 		receivedMessage.channel.send(str);
 	}
@@ -733,15 +733,15 @@ async function BuyItem(receivedMessage)
 	// Get the price the player's willing to pay
 	var price = receivedMessage.content.slice(6);
 
-	if (price < 30)
+	if (price < 20)
 	{
-		receivedMessage.channel.send('Потратить можно только не менее 30-ти Юнитов!');
+		receivedMessage.channel.send('Потратить можно только не менее 20-ти Юнитов!');
 		return;
 	}
 
 	if (price <= balanceUnits) // If there's enough money
 	{
-		var item = await AddItem(receivedMessage, Math.floor(price / 3));
+		var item = await AddItem(receivedMessage, Math.floor(price / 2));
 		await SetBalance(authorID, balanceUnits - price); // Deduct money
 		receivedMessage.channel.send('Покупка успешна, новый баланс ' + (balanceUnits - price) + ' Юнитов!'); // Show it was successful
 		receivedMessage.channel.send(GetItemString(receivedMessage, item, false, true, true));
