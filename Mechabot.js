@@ -731,7 +731,7 @@ async function BuyItem(receivedMessage)
 	var balanceUnits = await GetBalance(authorID);	// Get user's balance
 
 	// Get the price the player's willing to pay
-	var price = receivedMessage.content.slice(6); console.log(price);
+	var price = receivedMessage.content.slice(6);
 
 	if (price < 30)
 	{
