@@ -1690,4 +1690,4 @@ client.on('message', message =>
 });
 
 // IN THE END
-client.login('NzAxMTQ5MjgwMTE4NzY3NjU3.XqAQMQ.-I5Ew78nX0oH6YK9ghz_yXVinL8');
+client.login('NzAxMTQ5MjgwMTE4NzY3NjU3.XqAe6A.F1DEAxOojeMK8mgFKLuqhh1D_SI');
