@@ -6,6 +6,11 @@
   "scripts": {
     "start": "node Mechabot.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheSolSpb/mechabot.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "@babel/code-frame": {
       "version": "7.8.3",
