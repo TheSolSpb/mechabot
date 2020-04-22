@@ -56,8 +56,9 @@ function ProcessMessage(receivedMessage, messageContent)
 		str += '**м!мех** - показать комплектацию меха\n';
 		str += '**м!уст** ***x*** ***y*** - установить *x*-й предмет в слот меха *y*: м!уст 3 пр\n';
 		str += '**м!ул** ***x*** - улучшить *x*-й предмет в инвентаре: м!ул 4\n';
-		str += '**м!прод** ***x*** - продать *x*-й из инвентаря: м!прод 5\n';	
-		str += '**м!проднеуст** - продать все неустановленные на мехе предметы\n';		
+		str += '**м!прод** ***x*** - продать *x*-й из инвентаря за полцены: м!прод 5\n';	
+		str += '**м!проднеуст** - продать все неустановленные на мехе предметы за полцены\n';	
+		str += '**м!куп** ***x*** - купить случайный предмет за утроенную цену (не менее 30Ю): м!куп 90\n';	
 
 		receivedMessage.channel.send(str);
 	}
@@ -78,16 +79,6 @@ function ProcessMessage(receivedMessage, messageContent)
 	// Give help on combat
 	else if (messageContent == 'битвапомощь')
 	{
-		var str = ':white_small_square:You can send your mech fight an enemy mech in an encounter:\n';
-		str += ":white_small_square:You'll first see the stats comparison before the fight.\n";
-		str += ":white_small_square:Depending on the mechs' speeds, you or the enemy will have the advantage.\n";
-		str += ":white_small_square:Fighter with the advantage will deal advantage % of their weapon DPM to the enemy mech's back armor.\n";
-		str += ':white_small_square:Times to kill both mechs through front and back armor are calculated.\n';
-		str += ":white_small_square:If your mech is destroyed faster, it's a defeat.\n";
-		str += ":white_small_square:If enemy mech is destroyed faster, you are victorious.\n";
-		str += ":white_small_square:Every time you win, you receive a new part with the same price as the enemy mech's parts.\n";
-		str += ":white_small_square:Equip new parts or sell them to upgrade the old ones to progress!\n";
-
 		var str = ':white_small_square:Вы можете отправить своего меха сразиться с вражеским:\n';
 		str += ":white_small_square:Перед сражением вы увидите сравнение характеристик мехов.\n";
 		str += ":white_small_square:В зависимости от Скоростей, вы или противник получите преимущество.\n";
@@ -131,11 +122,16 @@ function ProcessMessage(receivedMessage, messageContent)
 		var index = messageContent.substr(3);
 		UpgradeItem(receivedMessage, index - 1);
 	}
-	// Sell an item
+	// Sell an item for 1/2x funds
 	else if (messageContent.startsWith('прод '))
 	{
 		var index = messageContent.substr(5);
 		SellItem(receivedMessage, index - 1);
+	}
+	// Buy an item for 3x funds
+	else if (messageContent.startsWith('куп '))
+	{
+		BuyItem(receivedMessage);
 	}
 	// Sell unused items
 	else if (messageContent == 'проднеуст')
@@ -725,6 +721,35 @@ async function GetItemString(receivedMessage, item, showLimits, showTag = true, 
 		str += item.arg2 + ' кг макс. массы, ' + item.arg3 + ' базовой скорости';
 		if (showLimits) str += ' (' + mechSpeed + ' настоящей скорости)'; // Show mech's speed
 		return str;
+	}
+}
+
+// Buying a specific item
+async function BuyItem(receivedMessage)
+{
+	var authorID = receivedMessage.author.id; // Get user's ID
+	var balanceUnits = await GetBalance(authorID);	// Get user's balance
+
+	// Get the price the player's willing to pay
+	var price = receivedMessage.content.substring(4);
+
+	if (price < 30)
+	{
+		receivedMessage.channel.send('Потратить можно только не менее 30-ти Юнитов!');
+		return;
+	}
+
+	if (price <= balanceUnits) // If there's enough money
+	{
+		var item = await AddItem(receivedMessage, Math.floor(price / 3));
+		await SetBalance(authorID, balanceUnits - price); // Deduct money
+		str += 'Покупка успешна, новый баланс ' + (balanceUnits - price) + ' Юнитов!/n';
+		receivedMessage.channel.send(str); // Show it was successful
+		GetItemString(receivedMessage, item, false, true, true);
+	}
+	else // If not enough funds
+	{
+		receivedMessage.channel.send('Недостаточно средств, нужно на ' + (price - balanceUnits) + 'Ю больше!'); // Show there was not enough funds
 	}
 }
 
