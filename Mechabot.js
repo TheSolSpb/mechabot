@@ -403,10 +403,10 @@ async function Encounter(receivedMessage)
 	if (encWeight > encWeightLimit) encWeight = encWeightLimit;
 	var encSpeed = Math.floor(encBaseSpeed * (2 - (encWeight / encWeightLimit)));
 
-	if (encFrontArmor == null || encFrontArmor == NaN) encFrontArmor = 1;
-	if (encBackArmor == null || encBackArmor == NaN) encBackArmor = 1;
-	if (encWeaponDPM == null || encWeaponDPM == NaN) encWeaponDPM = 1;
-	if (encSpeed == null || encSpeed == NaN) encSpeed = 1;
+	if (encFrontArmor == null || Number.isNaN(encFrontArmor)) encFrontArmor = 1;
+	if (encBackArmor == null || Number.isNaN(encBackArmor)) encBackArmor = 1;
+	if (encWeaponDPM == null || Number.isNaN(encWeaponDPM)) encWeaponDPM = 1;
+	if (encSpeed == null || Number.isNaN(encSpeed)) encSpeed = 1;
 
 	// Player stats
 	var plFrontArmor = await GetMechFrontArmor(receivedMessage);
@@ -1497,7 +1497,7 @@ function ApplyModifiers(base, type, pecul, hasPecul)
 
 	res = Math.floor(res);
 	if (res < 1) return 1;
-	if (res == NaN) return 1;
+	if (Number.isNaN(res)) return 1;
 	if (res == null) return 1;
 	return res;
 }
