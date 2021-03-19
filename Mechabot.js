@@ -1714,4 +1714,4 @@ client.on('message', message =>
 });
 
 // IN THE END
-client.login('NzAxMTQ5MjgwMTE4NzY3NjU3.XqAe6A.F1DEAxOojeMK8mgFKLuqhh1D_SI');
+;
